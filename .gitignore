@@ -18,3 +18,7 @@ models/trained/
 models/artifacts/
 # pycharm
 .idea
+# logs
+.log
+.logs
+logs
