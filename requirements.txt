@@ -7,3 +7,4 @@ ipykernel
 kagglehub
 missingno
 plotly
+requests
