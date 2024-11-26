@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+# Distribution
+dist/
+build/
+# Jupyter
+.ipynb_checkpoints
+# Environment
+venv/
+.env
+# Data
+data/raw/
+data/processed/
+# Models
+models/trained/
+models/artifacts/
+# pycharm
+.idea
