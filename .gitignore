@@ -13,10 +13,11 @@ build/
 venv/
 .env
 # Data
-data/raw/
-data/processed/
-!data/raw/raw.csv.dvc
-!raw.csv.dvc
+data/raw/test.csv
+data/raw/train.csv
+# data/processed/
+# !data/raw/raw.csv.dvc
+# !raw.csv.dvc
 # Models
 models/trained/
 models/artifacts/
