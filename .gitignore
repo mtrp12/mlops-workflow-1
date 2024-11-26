@@ -5,6 +5,8 @@ __pycache__/
 # Distribution
 dist/
 build/
+# setup
+*.egg-info
 # Jupyter
 .ipynb_checkpoints
 # Environment
