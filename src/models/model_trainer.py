@@ -127,16 +127,16 @@ class ModelTrainer:
 
             # Define models and parameters
             models = {
-                # "XGBClassifier": {
-                #     "model": XGBClassifier(eval_metric='logloss'),
-                #     "params": {
-                #         'n_estimators': [100, 500, 1000],
-                #         'max_depth': [3, 5, 7],
-                #         'learning_rate': [0.01, 0.1, 0.2],
-                #         'subsample': [0.8, 1.0],
-                #         'colsample_bytree': [0.8, 1.0]
-                #     }
-                # },
+                "XGBClassifier": {
+                    "model": XGBClassifier(eval_metric='logloss'),
+                    "params": {
+                        'n_estimators': [100, 500, 1000],
+                        'max_depth': [3, 5, 7],
+                        'learning_rate': [0.01, 0.1, 0.2],
+                        'subsample': [0.8, 1.0],
+                        'colsample_bytree': [0.8, 1.0]
+                    }
+                },
                 "RandomForest": {
                     "model": RandomForestClassifier(),
                     "params": {
