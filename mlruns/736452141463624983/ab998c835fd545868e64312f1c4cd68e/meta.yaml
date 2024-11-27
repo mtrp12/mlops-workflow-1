@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/736452141463624983/ab998c835fd545868e64312f1c4cd68e/artifacts
+end_time: 1732707063444
+entry_point_name: ''
+experiment_id: '736452141463624983'
+lifecycle_stage: active
+run_id: ab998c835fd545868e64312f1c4cd68e
+run_name: RandomForest_training_run_20241127_172953
+run_uuid: ab998c835fd545868e64312f1c4cd68e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732706993163
+status: 3
+tags: []
+user_id: Pial

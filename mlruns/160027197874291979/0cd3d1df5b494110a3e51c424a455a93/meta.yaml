@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/160027197874291979/0cd3d1df5b494110a3e51c424a455a93/artifacts
+end_time: 1732714025597
+entry_point_name: ''
+experiment_id: '160027197874291979'
+lifecycle_stage: active
+run_id: 0cd3d1df5b494110a3e51c424a455a93
+run_name: LogisticRegression_training_run_20241127_192511
+run_uuid: 0cd3d1df5b494110a3e51c424a455a93
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732714017526
+status: 3
+tags: []
+user_id: Pial

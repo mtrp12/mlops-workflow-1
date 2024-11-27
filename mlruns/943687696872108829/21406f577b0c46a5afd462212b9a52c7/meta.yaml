@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/943687696872108829/21406f577b0c46a5afd462212b9a52c7/artifacts
+end_time: 1732704069167
+entry_point_name: ''
+experiment_id: '943687696872108829'
+lifecycle_stage: active
+run_id: 21406f577b0c46a5afd462212b9a52c7
+run_name: XGBClassifier_training_run_20241127_162512
+run_uuid: 21406f577b0c46a5afd462212b9a52c7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732703112764
+status: 3
+tags: []
+user_id: Pial

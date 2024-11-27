@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/946104038380376984/3ef6305a130a432ab7f63d174cf4517a/artifacts
+deleted_time: 1732702648572
+end_time: 1732702582586
+entry_point_name: ''
+experiment_id: '946104038380376984'
+lifecycle_stage: deleted
+run_id: 3ef6305a130a432ab7f63d174cf4517a
+run_name: complete_pipeline
+run_uuid: 3ef6305a130a432ab7f63d174cf4517a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732702566931
+status: 4
+tags: []
+user_id: Pial

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/160027197874291979/cd6ce9e4bdb7438b87351b3145971670/artifacts
+end_time: 1732717735577
+entry_point_name: ''
+experiment_id: '160027197874291979'
+lifecycle_stage: active
+run_id: cd6ce9e4bdb7438b87351b3145971670
+run_name: complete_pipeline
+run_uuid: cd6ce9e4bdb7438b87351b3145971670
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732717731970
+status: 4
+tags: []
+user_id: Pial

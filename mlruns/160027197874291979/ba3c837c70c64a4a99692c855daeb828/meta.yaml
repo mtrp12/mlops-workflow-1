@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/160027197874291979/ba3c837c70c64a4a99692c855daeb828/artifacts
+end_time: 1732715405912
+entry_point_name: ''
+experiment_id: '160027197874291979'
+lifecycle_stage: active
+run_id: ba3c837c70c64a4a99692c855daeb828
+run_name: DecisionTree_training_run_20241127_194841
+run_uuid: ba3c837c70c64a4a99692c855daeb828
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732715384812
+status: 3
+tags: []
+user_id: Pial

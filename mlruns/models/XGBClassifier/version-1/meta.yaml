@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1732704069066
+current_stage: None
+description: ''
+last_updated_timestamp: 1732704069066
+name: XGBClassifier
+run_id: 21406f577b0c46a5afd462212b9a52c7
+run_link: ''
+source: mlflow-artifacts:/943687696872108829/21406f577b0c46a5afd462212b9a52c7/artifacts/XGBClassifier_model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/943687696872108829/21406f577b0c46a5afd462212b9a52c7/artifacts/XGBClassifier_model
+user_id: null
+version: 1

@@ -11,3 +11,5 @@ requests
 feast
 imbalanced-learn
 dvc
+xgboost
+mlflow
