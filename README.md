@@ -47,8 +47,8 @@ classDiagram
     }
     
     Customer --> Demographic_Features
-    Customer --> Employment_Features
-    Customer --> Financial_Features
+    Customer --> Customer_Features
+    Customer --> Service_Features
 ```
 
 ## Dataset Processing
