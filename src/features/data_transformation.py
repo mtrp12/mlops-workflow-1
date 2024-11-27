@@ -29,9 +29,10 @@ class DataTransformationConfig:
 
 class DataTransformation:
     def __init__(self):
+        self.data_transformation_config = DataTransformationConfig()
+
+    def _init_feature_store(self):
         try:
-            self.data_transformation_config = DataTransformationConfig()
-            
             # Get absolute path and create directory structure
             repo_path = os.path.abspath(self.data_transformation_config.feature_store_repo_path)
             os.makedirs(os.path.join(repo_path, "data"), exist_ok=True)
@@ -71,24 +72,26 @@ entity_key_serialization_version: 2\
 
 
     def initiate_data_transformation(self, train_path, test_path):
+        self._init_feature_store()
         try:
             train_data = pd.read_csv(train_path)
             test_data = pd.read_csv(test_path)
 
             logging.info("Read train and test data completed")
 
+            # TODO: remove
             le, mms, over = self._get_data_transformation_objects()
             logging.info("Obtained preprocessing object")
             
             logging.info("==========================")
             logging.info("Transforming training data")
             logging.info("==========================")
-            train_data, x_train, y_train, le = self._transform_data(train_data, le, mms, over, train=True)
+            train_data, x_train, y_train, mms, label_encoders = self._transform_data(train_data, None, mms, over, train=True)
 
             logging.info("==========================")
             logging.info("Transforming testing data")
             logging.info("==========================")
-            test_data, x_test, y_test, le = self._transform_data(test_data, le, mms, over, False)
+            test_data, x_test, y_test, _, _ = self._transform_data(test_data, label_encoders, mms, over, train=False)
 
 
             logging.info("Starting feature store operations")
@@ -102,7 +105,7 @@ entity_key_serialization_version: 2\
 
             save_object(
                 file_path=self.data_transformation_config.preprocess_obj_file_path,
-                obj={"le": le, "mms": mms, "over": over}
+                obj={"label_encoders": label_encoders, "mms": mms}
             )
             logging.info("Saved preprocessor objects")
 
@@ -119,24 +122,38 @@ entity_key_serialization_version: 2\
         over = SMOTE(sampling_strategy=1)
         return le,mms,over
 
-    def _transform_data(self, data, le, mms, over, train=False):
-        data = self._cast_totalcharges_to_float(data)
-        logging.info("Casted TotalCharges to float")
-
+    def _transform_data(self, data, label_encoders, mms, over=None, train=False, predict=False):
         data.drop(columns = ['customerID'], inplace = True)
         logging.info("Dropped customerID")
-
-        data, le = self._encode_labels(data, le)
-        logging.info("Label encoding complete")
-
-        data['tenure'] = mms.fit_transform(data[['tenure']])
-        data['MonthlyCharges'] = mms.fit_transform(data[['MonthlyCharges']])
-        data['TotalCharges'] = mms.fit_transform(data[['TotalCharges']])
-        logging.info("Data MinMax scaled")
-
         data.drop(columns = ['PhoneService', 'gender','StreamingTV','StreamingMovies','MultipleLines','InternetService'],inplace = True)
         logging.info("Insignificant columns dropped")
 
+        data = self._cast_totalcharges_to_float(data)
+        logging.info("Casted TotalCharges to float")
+
+        data, label_encoders = self._encode_labels(data, label_encoders, train=train)
+        logging.info("Label encoding complete")
+
+        min_max_scalers = {} if train else mms
+        for col in ['tenure', 'MonthlyCharges', 'TotalCharges']:
+            if train:
+                _mms = MinMaxScaler()
+                data[col] = _mms.fit_transform(data[[col]])
+                min_max_scalers[col] = _mms
+            else:
+                _mms = min_max_scalers[col]
+                data[col] = _mms.transform(data[[col]])
+
+        # data['tenure'] = mms_transform(data[['tenure']])
+        # data['MonthlyCharges'] = mms_transform(data[['MonthlyCharges']])
+        # data['TotalCharges'] = mms_transform(data[['TotalCharges']])
+        logging.info("Data MinMax scaled")
+
+
+        if predict:
+            return data, None, None, None, None
+        
+        # predict cannot be true while training/testing
         if train:
             x, y = over.fit_resample(data.iloc[:, :13].values, data.iloc[:, 13].values)
             logging.info(f"Data resampled to balance classes. Counter: {Counter(y)}")
@@ -144,17 +161,36 @@ entity_key_serialization_version: 2\
             x = data.iloc[:, :13].values
             y = data.iloc[:, 13].values
             
-        return data, x, y, le
+        return data, x, y, min_max_scalers, label_encoders
 
-    def _encode_labels(self, data, le):
+    def apply_transforms(self, data, transforms: dict):
+        label_encoders = transforms.get('label_encoders')
+        mms = transforms.get('mms')
+
+        data, _, _, _, _ = self._transform_data(data, label_encoders, mms, train=False, predict=True)
+        return data
+
+
+
+    def _encode_labels(self, data, label_encoders, train=False):
         logging.info('Label Encoder Transformation')
-        text_data_features = [i for i in list(data.columns) if i not in list(data.describe().columns)]
+        # text_data_features = [i for i in list(data.columns) if i not in list(data.describe().columns)]
+        text_data_features = data.select_dtypes(exclude=['number']).columns.tolist()
         logging.info(text_data_features)
+        logging.info(data['SeniorCitizen'].describe)
+        label_encoders = {} if train else label_encoders
+        logging.info(label_encoders)
         for i in text_data_features :
-            data[i] = le.fit_transform(data[i])
+            if train:
+                le = LabelEncoder()
+                data[i] = le.fit_transform(data[i])
+                label_encoders[i] = le
+            else:
+                le = label_encoders[i]
+                data[i] = le.transform(data[i])
             logging.info(f"{i}:{data[i].unique()} = {le.inverse_transform(data[i].unique())}")
         
-        return data, le
+        return data, label_encoders
 
     def _cast_totalcharges_to_float(self, data):
         l1 = [len(i.split()) for i in data['TotalCharges']]
@@ -269,3 +305,7 @@ entity_key_serialization_version: 2\
         except Exception as e:
             logging.error("Error occurred when retrieving features", exc_info=e)
             exit(1)
+
+
+if __name__ == "__main__":
+    pass
