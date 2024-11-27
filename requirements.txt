@@ -8,3 +8,6 @@ kagglehub
 missingno
 plotly
 requests
+feast
+imbalanced-learn
+dvc

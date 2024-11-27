@@ -25,7 +25,7 @@ class DataIngestion:
             data = pd.read_csv(os.path.join("data/raw", "raw.csv"))
             logging.info("Raw data reading has been completed")
 
-            train_set, test_set = train_test_split(data, test_size= .30, random_state=40)
+            train_set, test_set = train_test_split(data, test_size= .20, random_state=2)
             logging.info("Raw data has been splitted into Train and Test set")
 
             train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
