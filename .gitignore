@@ -15,6 +15,7 @@ venv/
 # Data
 data/raw/test.csv
 data/raw/train.csv
+data/processed
 # data/processed/
 # !data/raw/raw.csv.dvc
 # !raw.csv.dvc
@@ -27,3 +28,5 @@ models/artifacts/
 .log
 .logs
 logs
+# Feature Store
+feature_repo
