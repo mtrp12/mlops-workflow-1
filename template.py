@@ -54,8 +54,18 @@ if __name__ == "__main__":
         "src/pipelines/__init__.py",
         "src/pipelines/training_pipeline.py",
         "src/pipelines/prediction_pipeline.py",
+
+        "test/",
+        "notebooks/",
+        "docs/",
+        "data/",
+        "configs/",
         
-        "main.py"
+        "main.py",
+        "app.py",
+        "setup.py",
+        ".gitignore",
+        "requirements.txt",
     ]
 
     # Calling the function to create files and directories
