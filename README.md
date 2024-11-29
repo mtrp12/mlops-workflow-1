@@ -63,13 +63,13 @@ In this project four classifiers are trained and evaluated using a 10 fold cross
 ## Solution Stages
 The ML workflow is divided into the following stages.
 
-### Data Ingestion
+### Training Pipeline: Data Ingestion
 In this stage data is downloaded from source. The data is split into train/test sets. Afterwards, they are version controlled using dvc and saved to filesystem.
 
-### Data Transformation
+### Training Pipeline: Data Transformation
 In the transformation stage, the data is transformed into features that can be used to train models. The train/test data are loaded from the filesystem. The data is transformed into numerical value and normalized for categorical and numerical data respectively. The data has imbalanced samples. They are oversampled using SMOT technique. The final processed data is saved in the file system as training features and added to feature store. The transformers are stored in the filesystem alongside the models to transform prediction data.
 
-### Training Pipeline
+### Training Pipeline: Model Training & Evaluation
 During training the features are read from the filesystem. The classifiers are trainined on the train features using grid search to optimize the hyperparameters and find the best model. All the trained models are evaluated using the test features. The models along with the best model including all their metrics are stored in the feature store using mlflow.
 
 The four classifiers are:
