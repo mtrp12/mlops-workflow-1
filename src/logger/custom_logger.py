@@ -17,4 +17,4 @@ class CustomLogger(logging.Logger):
         )
         
         # Log the error
-        return super().error(msg, *args, exc_info=exc_info, **kwargs)
+        return super().error(detailed_message, *args, exc_info=exc_info, **kwargs)
