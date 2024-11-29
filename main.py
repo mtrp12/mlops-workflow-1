@@ -10,3 +10,4 @@ try:
     CustomerChurnPipeline().run_pipeline()
 except Exception as e:
     logging.error("Error here. Exiting", exc_info=e)
+    exit(1)

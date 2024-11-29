@@ -38,6 +38,7 @@ class DataIngestion:
       
         except Exception as e:
             logging.error("Error occurred while ingesting data", exc_info=e)
+            exit(1)
 
 if __name__ == "__main__":
     pass

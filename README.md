@@ -58,15 +58,29 @@ The dataset has been randomly split between train and test set, where the ratio 
 # Solution Overview
 In this project four classifiers are trained and evaluated using a 10 fold cross validation training method where the hyperparameters are tuned using grid search strategy. The best model based on the highest accuracy is stored and used by the flask application.
 
+![alt text](docs/images/mlops.png)
+
+## Solution Stages
+The ML workflow is divided into the following stages.
+
+### Data Ingestion
+In this stage data is downloaded from source. The data is split into train/test sets. Afterwards, they are version controlled using dvc and saved to filesystem.
+
+### Data Transformation
+In the transformation stage, the data is transformed into features that can be used to train models. The train/test data are loaded from the filesystem. The data is transformed into numerical value and normalized for categorical and numerical data respectively. The data has imbalanced samples. They are oversampled using SMOT technique. The final processed data is saved in the file system as training features and added to feature store. The transformers are stored in the filesystem alongside the models to transform prediction data.
+
+### Training Pipeline
+During training the features are read from the filesystem. The classifiers are trainined on the train features using grid search to optimize the hyperparameters and find the best model. All the trained models are evaluated using the test features. The models along with the best model including all their metrics are stored in the feature store using mlflow.
+
 The four classifiers are:
 - XGBClassifier
 - RandomForest
 - DecisionTree
 - LogisticRegression
 
-The hyperparameters that are tuned are given in the json below:
+The hyperparameter ranges tuned are given in the code block below
 
-```json
+```python
 {
     "XGBClassifier": {
         "model": XGBClassifier(eval_metric = 'logloss'),
@@ -104,6 +118,40 @@ The hyperparameters that are tuned are given in the json below:
             'solver': ['liblinear', 'saga']
         }
     }
+}
+```
+
+### Prediction Pipeline
+The prediction pipeline recieves data from clients or flask applications. It loads the model and transformers. The prediction data is transformed using the transformers. Afterwards, prediction is performed using the best model and result is returned to caller.
+
+### Flask Applicaiton
+The flask application is used to facilitate testing the model. The model is loaded and takes request from this application for prediction. The flask app has two endpoints.
+- GET /reload - this endpoint reloads the model and transformers
+- POST /predict - this endpoint is used to predict churn possibility based on input
+
+Sample payload for `/predict` endpoint
+```json
+{
+    "customerID": "9305-CDSKC",
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "No",
+    "Dependents": "No",
+    "tenure": 8,
+    "PhoneService": "Yes",
+    "MultipleLines": "Yes",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "No",
+    "DeviceProtection": "Yes",
+    "TechSupport": "No",
+    "StreamingTV": "Yes",
+    "StreamingMovies": "Yes",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 99.65,
+    "TotalCharges": "820.5"
 }
 ```
 # Project Structure:
@@ -182,7 +230,7 @@ This script simulates a request to the flast app on http://localhost:8000/predic
 python send_request.py
 ```
 
-## Reload Flast app models
+## Reload Flask app models
 It is possible to reload the models without shutting down the application. If a new model has been trained, it can be reloaded by the app by sending a get request to the application.
 
 ```http

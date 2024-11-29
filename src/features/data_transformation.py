@@ -134,6 +134,7 @@ entity_key_serialization_version: 2\
         data, label_encoders = self._encode_labels(data, label_encoders, train=train)
         logging.info("Label encoding complete")
 
+        # TODO: refactor function
         min_max_scalers = {} if train else mms
         for col in ['tenure', 'MonthlyCharges', 'TotalCharges']:
             if train:
