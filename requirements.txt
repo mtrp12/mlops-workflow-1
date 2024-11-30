@@ -13,3 +13,9 @@ imbalanced-learn
 dvc
 xgboost
 mlflow
+fastapi
+prometheus-fastapi-instrumentator
+httpx
+pydantic
+uvicorn[standard]
+pylint
