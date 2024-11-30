@@ -1,0 +1,7 @@
+numpy
+pandas
+fastapi
+prometheus-fastapi-instrumentator
+httpx
+pydantic
+uvicorn[standard]
