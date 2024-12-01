@@ -89,12 +89,14 @@ class HealthResponse(BaseModel):
 # ==========================================
 # ROUTES
 # ==========================================
-@app.get("/health")
+@app.get("/health",responses={
+        200: {"model": HealthResponse, "description": "Successful Operation"}
+    })
 async def health() -> HealthResponse:
     """
     Shows application health status.
     """
-    return HealthResponse("Healthy")
+    return HealthResponse(message="Healthy")
 
 @app.post("/predict",responses={
         200: {"model": PredictResponse, "description": "Successful Operation"},

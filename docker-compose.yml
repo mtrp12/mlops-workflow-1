@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: ./configs/fastapp/Fastapp.Dockerfile
-    command: uvicorn fastapp:app --host 0.0.0.0 --port 8000
+    command: uvicorn fastapp:app --host 0.0.0.0 --port 8000 --root-path '/fastapp'
     ports:
       - "8000:8000"
     depends_on:
@@ -50,7 +50,8 @@ services:
       dockerfile: ./configs/locust/Locust.Dockerfile
     ports:
       - "8089:8089"
-    command: locust --web-port 8089 --web-host 0.0.0.0 --web-base-path '/locust'
+    command: locust --class-picker --web-port 8089 --web-host 0.0.0.0
+    # command: locust --class-picker --web-port 8089 --web-host 0.0.0.0 --web-base-path '/locust/'
 
   cadvisor.example.com:
     image: google/cadvisor
