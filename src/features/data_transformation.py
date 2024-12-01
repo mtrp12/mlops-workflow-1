@@ -3,23 +3,23 @@ import sys
 import pandas as pd
 import numpy as np
 from src.logger.basic_logging import logging
-from sklearn.preprocessing import StandardScaler
+# from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import MinMaxScaler,StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.impute import SimpleImputer
 from dataclasses import dataclass
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
+# from sklearn.pipeline import Pipeline
+# from sklearn.compose import ColumnTransformer
 from src.utils.basic_util import save_object
 from feast import Field, FeatureStore, Entity, FeatureView, FileSource
 from feast.types import Int64, String, Float64, Int32
 from feast.value_type import ValueType
 from datetime import datetime, timedelta
-import imblearn
+# import imblearn
 from collections import Counter
 from imblearn.over_sampling import SMOTE
-from imblearn.under_sampling import RandomUnderSampler
-from imblearn.pipeline import Pipeline
+# from imblearn.under_sampling import RandomUnderSampler
+# from imblearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 
 @dataclass

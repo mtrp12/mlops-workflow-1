@@ -1,8 +1,12 @@
 numpy
 pandas
+scikit-learn
 fastapi
 prometheus-fastapi-instrumentator
 httpx
 pydantic
 uvicorn[standard]
 redis
+feast
+imblearn
+xgboost
