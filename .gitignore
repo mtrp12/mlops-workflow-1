@@ -20,8 +20,8 @@ data/processed
 # !data/raw/raw.csv.dvc
 # !raw.csv.dvc
 # Models
-models/trained/
-models/artifacts/
+# models/trained/
+# models/artifacts/
 # pycharm
 .idea
 # logs
