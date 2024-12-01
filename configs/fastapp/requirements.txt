@@ -5,3 +5,4 @@ prometheus-fastapi-instrumentator
 httpx
 pydantic
 uvicorn[standard]
+redis
